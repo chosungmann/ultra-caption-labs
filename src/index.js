@@ -4,10 +4,11 @@ import Moveable from "react-moveable";
 import { ref } from "framework-utils";
 import { Frame } from "scenejs";
 import "./styles.css";
+import $ from "jquery";
 
 class App extends React.Component {
   frame = new Frame({
-    width: "250px",
+    width: "800px",
     height: "200px",
     left: "0px",
     top: "0px",
@@ -46,6 +47,7 @@ class App extends React.Component {
           throttleResize={1}
           throttleScale={0.01}
           onDrag={this.onDrag}
+          onDragStart={this.onDragStart}
           onResize={this.onResize}
           onScale={this.onScale}
           onWarp={this.onWarp}
@@ -59,7 +61,7 @@ class App extends React.Component {
           onPinchEnd={this.onEnd}
         />
         <div className="container">
-          <div className="moveable">
+          <div className="moveable" id="caption">
             <span>
               React
               <br />
@@ -185,6 +187,11 @@ display: block; transform: translate(${clientX}px, ${clientY -
       this.setLabel(clientX, clientY, `X: ${left}px<br/>Y: ${top}px`);
     }
   };
+  onDragStart({ inputEvent, target, stop }) {
+    if (inputEvent.target.nodeName === "SPAN") {
+      return false;
+    }
+  };
   onScale = ({ target, delta, clientX, clientY, isPinch }) => {
     const scaleX = this.frame.get("transform", "scaleX") * delta[0];
     const scaleY = this.frame.get("transform", "scaleY") * delta[1];
@@ -231,3 +238,5 @@ display: block; transform: translate(${clientX}px, ${clientY -
 }
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
+
+$("#caption").load("https://chosungmann.github.io/ultra-caption-labs/caption/index.html");
