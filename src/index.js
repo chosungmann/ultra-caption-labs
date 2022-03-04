@@ -92,27 +92,10 @@ class App extends React.Component {
             </button>
           </div>
           <p align="middle">
-            Moveable is Draggable, Resizable, Scalable, Rotatable, Warpable,
-            Pinchable
-          </p>
-          <p align="middle">
-            <a href="https://github.com/daybrush/moveable" target="_blank">
-              <strong>About Moveable</strong>
-            </a>{" "}
-            /
-            <a
-              href="https://daybrush.com/moveable/release/latest/doc/"
-              target="_blank"
-            >
-              <strong>API</strong>
-            </a>{" "}
-            /
-            <a
-              href="https://github.com/daybrush/scenejs-timeline"
-              target="_blank"
-            >
-              <strong>Main Project</strong>
-            </a>
+            <textarea
+              className="editable"
+              id="editor"
+            />
           </p>
         </div>
         <div className="label" ref={ref(this, "label")} />
@@ -239,4 +222,28 @@ display: block; transform: translate(${clientX}px, ${clientY -
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
 
-$("#caption").load("https://chosungmann.github.io/ultra-caption-labs/caption/index.html");
+function refreshEditorContent() {
+  const captions = new Map();
+  $("#caption")
+    .find("[contenteditable]")
+    .each((_, caption) => captions.set(`${caption.id}`, `${caption.innerHTML}`));
+  $("#editor").val(JSON.stringify(Object.fromEntries(captions), null, 2));
+};
+
+function refreshViewerContent() {
+  try {
+    Object
+      .entries(JSON.parse($("#editor").val()))
+      .forEach(([key, value]) => { $(`#${key}`).html(`${value}`); });
+  } catch (error) {
+    console.error(error);
+    return;
+  }
+};
+
+$("#caption")
+  .load("https://chosungmann.github.io/ultra-caption-labs/caption/index.html", refreshEditorContent)
+  .on("input", "[contenteditable]", refreshEditorContent);
+
+$("#editor")
+  .on("input", refreshViewerContent);

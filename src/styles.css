@@ -253,3 +253,17 @@ code.hljs {
 .page.footer span:before {
   content: "/";
 }
+
+.editable {
+  font-family: sans-serif;
+  /* margin-left: 10%; */
+  width: 800px;
+  min-height: 100px;
+  border: 1px dashed #aaa;
+  padding: 5px;
+  resize: none;
+}
+
+textarea.editable {
+  font-family: monospace, monospace;
+}
