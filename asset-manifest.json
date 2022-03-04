@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ultra-caption-labs/static/css/main.0c5d9f96.css",
+    "main.js": "/ultra-caption-labs/static/js/main.acf08521.js",
+    "index.html": "/ultra-caption-labs/index.html",
+    "main.0c5d9f96.css.map": "/ultra-caption-labs/static/css/main.0c5d9f96.css.map",
+    "main.acf08521.js.map": "/ultra-caption-labs/static/js/main.acf08521.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0c5d9f96.css",
+    "static/js/main.acf08521.js"
+  ]
+}
